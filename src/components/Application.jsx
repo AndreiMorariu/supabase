@@ -87,53 +87,51 @@ function MenuComponent({ link, onOpen, index, id }) {
   }
 
   return (
-    <>
-      <Box>
-        <Button
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          <MenuIcon />
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
+    <Box sx={{ marginLeft: "auto" }}>
+      <Button
+        aria-controls={open ? "basic-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        onClick={handleClick}
+      >
+        <MenuIcon />
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <a
+            href={link}
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+            target="_blank"
+          >
+            <OpenInNewIcon />
+            Link
+          </a>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            onOpen(index);
           }}
+          sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
         >
-          <MenuItem onClick={handleClose}>
-            <a
-              href={link}
-              style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-              target="_blank"
-            >
-              <OpenInNewIcon />
-              Link
-            </a>
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              handleClose();
-              onOpen(index);
-            }}
-            sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-          >
-            <EditIcon />
-            Edit
-          </MenuItem>
-          <MenuItem
-            onClick={handleDelete}
-            sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
-          >
-            <DeleteIcon />
-            Delete
-          </MenuItem>
-        </Menu>
-      </Box>
-    </>
+          <EditIcon />
+          Edit
+        </MenuItem>
+        <MenuItem
+          onClick={handleDelete}
+          sx={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+        >
+          <DeleteIcon />
+          Delete
+        </MenuItem>
+      </Menu>
+    </Box>
   );
 }
