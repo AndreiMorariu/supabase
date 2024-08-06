@@ -26,6 +26,9 @@ export async function insertApplication(application) {
     const { data: sessionData } = await supabase.auth.getSession();
     const userID = sessionData.session.user.id;
 
+    if (!application.link.startsWith("http"))
+      application.link = `https://${application.link}`;
+
     const { data, error } = await supabase
       .from("applications")
       .insert({ ...application, user_id: userID })
@@ -47,6 +50,9 @@ export async function deleteApplication(id) {
 
 export async function updateApplication(application, id) {
   try {
+    if (!application.link.startsWith("http"))
+      application.link = `https://${application.link}`;
+
     const { data, error } = await supabase
       .from("applications")
       .update(application)
